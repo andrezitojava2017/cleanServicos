@@ -1,31 +1,31 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import styled from 'styled-components/native';
+import color from '../styles/colors.json';
 
-const Avatar = () => {
+const Container = styled.View`
+  height: ${props => (props.height ? props.height : '150px')} ;
+  width:  ${props => (props.width ? props.width : '150px')} ;
+  background: red;
+  border-radius:80px
+  border-width: 1px;
+  border-color: ${color.colors.white}
+  align-items: center;
+  justify-content: center;
+`;
+
+const TextName = styled.Text`
+  font-size: 50px;
+  color: #ffffff;
+  font-weight: 700;
+`;
+
+const Avatar = ({contHeight, contWidth}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.textName}>JA</Text>
-    </View>
+    <Container height={contHeight} width={contWidth}>
+      <TextName>JA</TextName>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: 150,
-    height: 150,
-    backgroundColor: '#FF3002',
-    borderWidth: 1,
-    borderColor: '#FFF5F5',
-    display: 'flex',
-    borderRadius: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textName: {
-    fontFamily: 'WorkSans-Medium',
-    fontSize: 50,
-    color: '#FFFFFF',
-  },
-});
 
 export default Avatar;

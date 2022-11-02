@@ -7,7 +7,7 @@ const Profile = () => {
   return (
     <View>
       <View style={style.containerAvatar}>
-        <Avatar />
+        <Avatar contHeight="120px" contWidth="120px" />
         <Text style={style.textName}>Jederson Andre</Text>
       </View>
       <Information data="JEDERSON ANDRE" />
