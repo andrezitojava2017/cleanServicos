@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
 import styled from 'styled-components/native';
 import color from '../styles/colors.json';
 
@@ -15,7 +14,7 @@ const Container = styled.View`
 `;
 
 const TextName = styled.Text`
-  font-size: 50px;
+  font-size: ${props => (props.size ? props.size : '50px')};
   color: #ffffff;
   font-weight: 700;
 `;
