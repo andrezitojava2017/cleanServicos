@@ -19,10 +19,10 @@ const TextName = styled.Text`
   font-weight: 700;
 `;
 
-const Avatar = ({contHeight, contWidth}) => {
+const Avatar = ({contHeight, contWidth, size, text}) => {
   return (
     <Container height={contHeight} width={contWidth}>
-      <TextName>JA</TextName>
+      <TextName size={size}>{text}</TextName>
     </Container>
   );
 };
