@@ -1,11 +1,13 @@
 import React from 'react';
 import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
-import Login from './screens/Login';
+import Login from './screens/Login/Login';
+import Profile from './screens/profile/Profile';
 
 const App = () => {
   return (
     <SafeAreaView style={style.container}>
-      <Login />
+      {/*<Login /> */}
+      <Profile />
     </SafeAreaView>
   );
 };
