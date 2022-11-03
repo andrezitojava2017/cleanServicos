@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import Avatar from '../../components/Avatar';
 import Information from '../../components/Information';
 
-const Profile = () => {
+const Profile = ({size, text}) => {
   return (
     <View>
       <View style={style.containerAvatar}>
