@@ -19,7 +19,7 @@ const DATA = [
   },
 ];
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -43,12 +43,16 @@ const captureInitialLetters = text => {
   return initialLetters.toUpperCase();
 };
 
-const ListUsers = () => {
+const ListUsers = props => {
+  const profileScreen = () => {
+    props.navigation.navigate('Profile');
+  };
+
   const renderItem = ({item}) => {
     let initialLetters = captureInitialLetters(item.title);
 
     return (
-      <Container>
+      <Container onPress={profileScreen}>
         <ItemUser
           size="18px"
           contHeight="50px"
