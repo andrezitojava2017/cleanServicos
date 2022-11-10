@@ -45,7 +45,7 @@ const captureInitialLetters = text => {
 
 const ListUsers = props => {
   const profileScreen = () => {
-    props.navigation.navigate('Profile');
+    props.navigation.navigate('Location');
   };
 
   const renderItem = ({item}) => {

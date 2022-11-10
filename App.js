@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Location">
+      <Stack.Navigator initialRouteName="ListUsers">
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ListUsers" component={ListUsers} />
         <Stack.Screen name="Location" component={UserLocation} />

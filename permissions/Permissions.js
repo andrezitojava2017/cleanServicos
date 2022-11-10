@@ -13,11 +13,11 @@ const RequestLocationPermission = async () => {
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       return true;
     } else {
-      Alert.alert('Acesso Negado ', 'Permissão negada');
+      alert('Acesso Negado ', 'Permissão negada');
       return false;
     }
   } catch (err) {
-    Alert.alert('Error ', err);
+    alert('Error ', err);
   }
 };
 export default RequestLocationPermission;
