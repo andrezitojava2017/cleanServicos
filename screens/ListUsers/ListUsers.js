@@ -65,7 +65,7 @@ const ListUsers = props => {
   };
 
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: color.colors.blue}}>
       <FlatList
         data={DATA}
         renderItem={renderItem}
