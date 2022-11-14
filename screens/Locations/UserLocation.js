@@ -1,48 +1,51 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, Text, View} from 'react-native';
 import RequestPermission from '../../permissions/Permissions';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {Marker} from 'react-native-maps';
 import LocationUsers from '../../locationsUsers';
+import {Platform} from 'react-native';
 
 const UserLocation = () => {
-  const [slatitude, setLatitude] = useState(0);
-  const [slongitude, setLongitude] = useState(0);
+  const [slatitude, setSlatitude] = useState(0);
+  const [slongitude, setSlongitude] = useState(0);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     (async () => {
       let rp = await RequestPermission();
       if (rp) {
-        await getLocation();
-        setUsers(LocationUsers(slatitude, slongitude));
-        console.log('if useefect executado');
-        console.log(slatitude);
+        getLocation()
+          .then(response => {
+            console.log(
+              `valor de retorno promisse: ${response.latitude} - ${response.longitude}`,
+            );
+            setSlatitude(response.latitude);
+            setSlongitude(response.longitude);
+            console.log(`valor de lat= ${slatitude} e long= ${slongitude}`);
+          })
+          .catch(reject => {
+            alert('Error', 'Ocorreu um erro de localização!!');
+          });
       } else {
         console.log('else useefect executado');
       }
     })();
   }, []);
 
-  const getLocation = async () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-        console.log(slatitude);
-      },
-      error => {
-        alert('Error', error.message);
-        //console.log(error.code, error.message);
-      },
-      {enableHighAccuracy: true, timeout: 2000, maximumAge: 2000},
-    );
-
-    /*
-    alert(
-      `função permission ${responsePermission} ${slatitude}  ${slongitude}`,
-    );
-    */
+  const getLocation = () => {
+    return new Promise((resolve, reject) => {
+      if (Platform.OS === 'android') {
+        Geolocation.getCurrentPosition(
+          position => {
+            resolve({...position.coords});
+          },
+          error => {
+            reject(error.message);
+          },
+          {enableHighAccuracy: true, timeout: 2000, maximumAge: 2000},
+        );
+      }
+    });
   };
 
   return (
