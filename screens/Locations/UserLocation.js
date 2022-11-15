@@ -5,10 +5,9 @@ import MapView, {Marker} from 'react-native-maps';
 import LocationUsers from '../../locationsUsers';
 import {Platform} from 'react-native';
 
-const UserLocation = () => {
+const UserLocation = props => {
   const [slatitude, setSlatitude] = useState(0);
   const [slongitude, setSlongitude] = useState(0);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -16,18 +15,12 @@ const UserLocation = () => {
       if (rp) {
         getLocation()
           .then(response => {
-            console.log(
-              `valor de retorno promisse: ${response.latitude} - ${response.longitude}`,
-            );
             setSlatitude(response.latitude);
             setSlongitude(response.longitude);
-            console.log(`valor de lat= ${slatitude} e long= ${slongitude}`);
           })
           .catch(reject => {
-            alert('Error', 'Ocorreu um erro de localização!!');
+            alert('Error', reject);
           });
-      } else {
-        console.log('else useefect executado');
       }
     })();
   }, []);
@@ -48,6 +41,12 @@ const UserLocation = () => {
     });
   };
 
+  const handleSelect = e => {
+    let coordinate = e.nativeEvent.coordinate;
+    console.log({...coordinate});
+    props.navigation.navigate('Profile', {...coordinate});
+  };
+
   return (
     <MapView
       style={{width: '100%', height: '100%'}}
@@ -59,13 +58,33 @@ const UserLocation = () => {
         longitudeDelta: 0.00425,
       }}
       showsUserLocation={true}>
-      <Marker
-        coordinate={{
-          latitude: slatitude + 0.001,
-          longitude: slongitude + 0.0012,
-        }}
-        title={`USUARIO TESTE`}
-      />
+      {slatitude != 0 ? (
+        <>
+          <Marker
+            onPress={handleSelect}
+            coordinate={{
+              latitude: slatitude + 0.001,
+              longitude: slongitude + 0.0012,
+            }}
+            title={`Lorem Ipson Ipson`}
+          />
+
+          <Marker
+            coordinate={{
+              latitude: slatitude + -0.002,
+              longitude: slongitude + -0.002,
+            }}
+            title={`Fulano de Tal`}
+          />
+          <Marker
+            coordinate={{
+              latitude: slatitude + -0.003,
+              longitude: slongitude + -0.00012,
+            }}
+            title={`Ciclano de tal e tal`}
+          />
+        </>
+      ) : null}
     </MapView>
   );
 };
