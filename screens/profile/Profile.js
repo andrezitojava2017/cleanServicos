@@ -3,16 +3,17 @@ import {StyleSheet, Text, View} from 'react-native';
 import Avatar from '../../components/Avatar';
 import Information from '../../components/Information';
 
-const Profile = ({size, text}) => {
+const Profile = ({size, text, route}) => {
   return (
     <View>
       <View style={style.containerAvatar}>
-        <Avatar contHeight="120px" contWidth="120px" />
-        <Text style={style.textName}>Jederson Andre</Text>
+        <Avatar contHeight="120px" contWidth="120px" text="JA" />
+        <Text style={style.textName}>{route.params.name}</Text>
       </View>
-      <Information data="JEDERSON ANDRE" />
+      <Information data={route.params.name} />
       <Information data="-45.235715668" />
       <Information data="-18.753215687" />
+      {console.log(route.params)}
     </View>
   );
 };
