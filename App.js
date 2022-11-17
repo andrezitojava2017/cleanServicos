@@ -12,24 +12,13 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ListUsers">
+      <Stack.Navigator initialRouteName="Location">
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ListUsers" component={ListUsers} />
         <Stack.Screen name="Location" component={UserLocation} />
       </Stack.Navigator>
-      {/*<Login /> 
-      < />
-            
-      <ListUsers />
-      */}
     </NavigationContainer>
   );
 };
 
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#175B9A',
-  },
-});
 export default App;
