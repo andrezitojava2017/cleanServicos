@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import RequestPermission from '../../permissions/Permissions';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {Marker} from 'react-native-maps';
-import {Platform} from 'react-native';
+import color from '../../styles/colors.json';
+import {Platform, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 const UserLocation = props => {
   const [slatitude, setSlatitude] = useState(0);
@@ -70,49 +71,64 @@ const UserLocation = props => {
   };
 
   return (
-    <MapView
-      style={{width: '100%', height: '100%'}}
-      loadingEnabled={true}
-      region={{
-        latitude: slatitude,
-        longitude: slongitude,
-        latitudeDelta: 0.00925,
-        longitudeDelta: 0.00425,
-      }}
-      showsUserLocation={true}>
-      {slatitude != 0
-        ? DATA.map(marker => {
-            <Marker
-              key={marker.id}
-              onPress={e => {
-                props.navigation.navigate('Profile', {
-                  ...marker,
-                });
-              }}
-              coordinate={{...marker.coords}}
-              title={`${marker.name}`}
-            />;
-          })
-        : /*
-        <>
-          <Marker
-            onPress={e => {
-              props.navigation.navigate('Profile', {
-                name: 'Loren Ipson Ipson',
-                ...e.nativeEvent.coordinate,
-              });
-            }}
-            coordinate={{
-              latitude: slatitude + 0.001,
-              longitude: slongitude + 0.0012,
-            }}
-            title={`Lorem Ipson Ipson`}
-          />
-        </>
-        */
-          alert('nao carregou')}
-    </MapView>
+    <>
+      <MapView
+        style={style.mapStyle}
+        loadingEnabled={true}
+        region={{
+          latitude: slatitude,
+          longitude: slongitude,
+          latitudeDelta: 0.00925,
+          longitudeDelta: 0.00425,
+        }}
+        showsUserLocation={true}>
+        {slatitude != 0
+          ? DATA.map(marker => {
+              return (
+                <Marker
+                  key={marker.id}
+                  onPress={e => {
+                    props.navigation.navigate('Profile', {
+                      ...marker,
+                    });
+                  }}
+                  coordinate={{...marker.coords}}
+                  title={`${marker.name}`}
+                />
+              );
+            })
+          : null}
+      </MapView>
+
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => props.navigation.navigate('ListUsers')}
+        style={style.button}>
+        <Text style={style.text}>Todos</Text>
+      </TouchableOpacity>
+    </>
   );
 };
+
+const style = StyleSheet.create({
+  mapStyle: {
+    flex: 1,
+  },
+  button: {
+    position: 'absolute',
+    width: 70,
+    height: 70,
+    right: 20,
+    bottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 80,
+    backgroundColor: `${color.colors.red}`,
+  },
+  text: {
+    fontWeight: 'bold',
+    color: `${color.colors.white}`,
+  },
+});
 
 export default UserLocation;
