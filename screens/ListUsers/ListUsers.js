@@ -43,23 +43,24 @@ const captureInitialLetters = text => {
   return initialLetters.toUpperCase();
 };
 
-const ListUsers = props => {
-  const profileScreen = () => {
-    props.navigation.navigate('Location');
+const ListUsers = ({route, navigation}) => {
+  const profileScreen = item => {
+    let initialLetters = captureInitialLetters(item.name);
+    navigation.navigate('Profile', {...item, initialLetters});
   };
 
   const renderItem = ({item}) => {
-    let initialLetters = captureInitialLetters(item.title);
+    let initialLetters = captureInitialLetters(item.name);
 
     return (
-      <Container onPress={profileScreen}>
+      <Container onPress={() => profileScreen(item)}>
         <ItemUser
           size="18px"
           contHeight="50px"
           contWidth="50px"
           text={initialLetters}
         />
-        <TextName>{item.title}</TextName>
+        <TextName>{item.name}</TextName>
       </Container>
     );
   };
@@ -67,7 +68,7 @@ const ListUsers = props => {
   return (
     <View style={{flex: 1, backgroundColor: color.colors.blue}}>
       <FlatList
-        data={DATA}
+        data={route.params.DATA}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

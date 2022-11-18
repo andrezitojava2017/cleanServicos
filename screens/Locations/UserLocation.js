@@ -16,7 +16,10 @@ const UserLocation = props => {
         latitude: slatitude + -0.002,
         longitude: slongitude + -0.002,
       },
-      service: ['Faxina em geral', 'Lavar roupas', 'Passar roupas'],
+      service: [
+        {'Lavar roupas': {custo: 100.0}},
+        {'Passar roupas': {custo: 80.0}},
+      ],
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -25,7 +28,7 @@ const UserLocation = props => {
         latitude: slatitude + -0.003,
         longitude: slongitude + -0.00012,
       },
-      service: ['Lavar roupas', 'Passar roupas'],
+      service: [{Cozinhar: {custo: 100.0}}, {'Passar roupas': {custo: 80.0}}],
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
@@ -34,7 +37,7 @@ const UserLocation = props => {
         latitude: slatitude + -0.002,
         longitude: slongitude + -0.00012,
       },
-      service: ['Lavar roupas'],
+      service: [{'Faxina em Geral': {custo: 150.0}}, {Cozinhar: {custo: 80.0}}],
     },
   ];
 
@@ -102,7 +105,7 @@ const UserLocation = props => {
 
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => props.navigation.navigate('ListUsers')}
+        onPress={() => props.navigation.navigate('ListUsers', {DATA})}
         style={style.button}>
         <Text style={style.text}>Todos</Text>
       </TouchableOpacity>

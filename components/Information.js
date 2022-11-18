@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 const Information = props => {
   return (
     <View>
+      <Icon name="info" size={30} color="#900" />
       <View style={style.information}>
         <Text>{props.data}</Text>
       </View>
