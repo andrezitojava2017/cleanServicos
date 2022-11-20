@@ -11,9 +11,21 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Location">
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="ListUsers" component={ListUsers} />
-        <Stack.Screen name="Location" component={UserLocation} />
+        <Stack.Screen
+          name="Profile"
+          options={{title: 'Perfil'}}
+          component={Profile}
+        />
+        <Stack.Screen
+          name="ListUsers"
+          options={{title: 'Proximos a você'}}
+          component={ListUsers}
+        />
+        <Stack.Screen
+          name="Location"
+          options={{title: 'Mapa'}}
+          component={UserLocation}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
