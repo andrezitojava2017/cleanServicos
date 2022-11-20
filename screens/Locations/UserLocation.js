@@ -17,8 +17,16 @@ const UserLocation = props => {
         longitude: slongitude + -0.002,
       },
       service: [
-        {'Lavar roupas': {custo: 100.0}},
-        {'Passar roupas': {custo: 80.0}},
+        {
+          id: '01',
+          descricao: 'Lavar roupas',
+          custo: 80.0,
+        },
+        {
+          id: '02',
+          descricao: 'Limpar banheiro',
+          custo: 50.0,
+        },
       ],
     },
     {
@@ -28,7 +36,18 @@ const UserLocation = props => {
         latitude: slatitude + -0.003,
         longitude: slongitude + -0.00012,
       },
-      service: [{Cozinhar: {custo: 100.0}}, {'Passar roupas': {custo: 80.0}}],
+      service: [
+        {
+          id: '03',
+          descricao: 'Faxina em Geral',
+          custo: 80.0,
+        },
+        {
+          id: '04',
+          descricao: 'Passar roupas',
+          custo: 50.0,
+        },
+      ],
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
@@ -37,7 +56,18 @@ const UserLocation = props => {
         latitude: slatitude + -0.002,
         longitude: slongitude + -0.00012,
       },
-      service: [{'Faxina em Geral': {custo: 150.0}}, {Cozinhar: {custo: 80.0}}],
+      service: [
+        {
+          id: '05',
+          descricao: 'Cozinhar',
+          custo: 50.0,
+        },
+        {
+          id: '06',
+          descricao: 'Passar roupas',
+          custo: 50.0,
+        },
+      ],
     },
   ];
 
@@ -72,7 +102,22 @@ const UserLocation = props => {
       }
     });
   };
+  const handleMarker = (e, marker) => {
+    let initialLetters = captureInitialLetters(marker.name);
 
+    props.navigation.navigate('Profile', {
+      ...marker,
+      initialLetters,
+    });
+  };
+  const captureInitialLetters = text => {
+    let arrayNames = text.split(' ');
+    let firstLetterName = arrayNames[0].slice(0, 1);
+    let secondLetterLastName = arrayNames[1].slice(0, 1);
+    let initialLetters = `${firstLetterName}${secondLetterLastName} `;
+
+    return initialLetters.toUpperCase();
+  };
   return (
     <>
       <MapView
@@ -91,9 +136,7 @@ const UserLocation = props => {
                 <Marker
                   key={marker.id}
                   onPress={e => {
-                    props.navigation.navigate('Profile', {
-                      ...marker,
-                    });
+                    handleMarker(e, marker);
                   }}
                   coordinate={{...marker.coords}}
                   title={`${marker.name}`}
