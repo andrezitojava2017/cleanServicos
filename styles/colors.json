@@ -1,7 +1,10 @@
 {
   "colors": {
     "blue": "#175B9A",
+    "blue2": "#007CEE",
     "red": "#FF3002",
-    "white": "#FFF5F5"
+    "white1": "#FFF5F5",
+    "WhiteSmoke": "#F5F5F5",
+    "white2": "#E8E5E5"
   }
 }
