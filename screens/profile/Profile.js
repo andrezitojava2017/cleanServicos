@@ -1,84 +1,87 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import Avatar from '../../components/Avatar';
-import Information from '../../components/Information';
+import {FlatList} from 'react-native';
+import colors from '../../styles/colors.json';
+import {Avatar, Box, Text, VStack} from 'native-base';
 
 const Profile = ({route}) => {
   //
   const dta = route.params.service;
 
+  /**
+   * Para formatar o valor de com R$ e decimais
+   * @param {*} value
+   */
+  const nubFormat = value => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+  };
+
   const renderItemService = ({item}) => {
     return (
-      <View style={style.containerItemList}>
-        <Text style={style.itemService}>{item.descricao}</Text>
-        <Text style={style.itemService}>R${item.custo}</Text>
-      </View>
+      <Box
+        flexDirection="row"
+        backgroundColor={colors.colors.WhiteSmoke}
+        shadow="4"
+        justifyContent="space-between"
+        paddingLeft="2"
+        marginBottom="4"
+        borderRadius="8"
+        borderLeftWidth="8"
+        borderLeftColor={colors.colors.blue2}
+        height="20">
+        <Box justifyContent="center">
+          <Text fontSize="16" fontFamily="WorkSans-Thin">
+            {item.descricao}
+          </Text>
+        </Box>
+
+        <Box
+          backgroundColor={colors.colors.white2}
+          justifyContent="center"
+          width="24">
+          <Text fontWeight="bold" fontSize="18">
+            {nubFormat(item.custo)}
+          </Text>
+        </Box>
+      </Box>
     );
   };
 
   return (
-    <View style={style.containerProfile}>
-      <View style={style.containerAvatar}>
-        <Avatar
-          contHeight="120px"
-          contWidth="120px"
-          text={`${route.params.initialLetters}`}
-        />
-        <Text style={style.textName}>{route.params.name}</Text>
-      </View>
-      <View style={style.title}>
-        <Text style={{fontSize: 20, color: 'white'}}>Serviços</Text>
-      </View>
-      <View>
+    <VStack space="1/6">
+      <Box backgroundColor={`${colors.colors.blue}`} width="full" height="120">
+        <Box
+          backgroundColor={colors.colors.WhiteSmoke}
+          shadow="3"
+          marginX="6"
+          height="150"
+          alignItems="center"
+          justifyContent="center"
+          borderRadius="16">
+          <Box alignItems="center">
+            <Avatar
+              source={{uri: 'https://wallpaperaccess.com/full/317501.jpg'}}
+              alt="Serviços "
+              size={20}
+            />
+            <Text fontSize="20" fontFamily="WorkSans-Medium">
+              Jederson André
+            </Text>
+          </Box>
+        </Box>
+      </Box>
+      <VStack marginX="6" space="2">
+        <Text fontSize="20">Serviços</Text>
         <FlatList
           data={dta}
           renderItem={renderItemService}
           keyExtractor={item => item.id}
         />
-      </View>
-      <View style={style.title}>
-        <Text style={{fontSize: 20, color: 'white'}}>Localização</Text>
-      </View>
-      <Information data={route.params.coords} />
-    </View>
+      </VStack>
+    </VStack>
   );
 };
 
-const style = StyleSheet.create({
-  containerAvatar: {
-    backgroundColor: '#278EED',
-    alignItems: 'center',
-    paddingTop: 50,
-    paddingBottom: 30,
-  },
-  containerProfile: {
-    flex: 2,
-    backgroundColor: '#175B9A',
-  },
-  textName: {
-    fontFamily: 'WorkSans-Medium',
-    fontSize: 16,
-    paddingTop: 10,
-    color: '#FFF5F5',
-  },
-  title: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 30,
-  },
-  containerItemList: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#D9D9D9',
-    borderRadius: 20,
-    marginRight: 12,
-    marginLeft: 12,
-    marginTop: 12,
-    padding: 12,
-  },
-  itemService: {
-    fontSize: 18,
-  },
-});
 export default Profile;
