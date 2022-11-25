@@ -18,11 +18,17 @@ const Profile = ({route}) => {
     }).format(value);
   };
 
+  /**
+   * função que ira renderiza os componentes no flatlist
+   * retornando os serviços disponiveis de um usuario
+   * @param {*} param0
+   */
   const renderItemService = ({item}) => {
     return (
       <Box
         flexDirection="row"
-        backgroundColor={colors.colors.WhiteSmoke}
+        backgroundColor={colors.colors.white2}
+        //backgroundColor={colors.colors.WhiteSmoke}
         shadow="4"
         justifyContent="space-between"
         paddingLeft="2"
@@ -38,10 +44,11 @@ const Profile = ({route}) => {
         </Box>
 
         <Box
-          backgroundColor={colors.colors.white2}
+          borderRadius="8"
+          backgroundColor="rgb(214,212,210)"
           justifyContent="center"
           width="24">
-          <Text fontWeight="bold" fontSize="18">
+          <Text fontWeight="bold" fontSize="18" paddingLeft="1.5">
             {nubFormat(item.custo)}
           </Text>
         </Box>
@@ -53,7 +60,8 @@ const Profile = ({route}) => {
     <VStack space="1/6">
       <Box backgroundColor={`${colors.colors.blue}`} width="full" height="120">
         <Box
-          backgroundColor={colors.colors.WhiteSmoke}
+          backgroundColor={colors.colors.white2}
+          //backgroundColor={colors.colors.WhiteSmoke}
           shadow="3"
           marginX="6"
           height="150"
