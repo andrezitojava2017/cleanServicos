@@ -7,6 +7,7 @@ import UserLocation from './screens/Locations/UserLocation';
 import colors from './styles/colors.json';
 import {NativeBaseProvider} from 'native-base';
 import Contract from './screens/contract/Contract';
+import Users from './screens/ListUsers/Users';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,7 +40,7 @@ const App = () => {
               title: 'Disponiveis em sua região',
               ...styleStatusBar,
             }}
-            component={ListUsers}
+            component={Users}
           />
           <Stack.Screen
             name="Location"
