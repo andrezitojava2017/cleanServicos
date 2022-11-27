@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserLocation from './screens/Locations/UserLocation';
 import colors from './styles/colors.json';
 import {NativeBaseProvider} from 'native-base';
+import Contract from './screens/contract/Contract';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ const styleStatusBar = {
   headerShadowVisible: false,
   headerTitleAlign: 'center',
   headerTintColor: '#FFFFFF',
+  statusBarHidden: true,
 };
 
 const App = () => {
@@ -46,6 +48,14 @@ const App = () => {
               ...styleStatusBar,
             }}
             component={UserLocation}
+          />
+          <Stack.Screen
+            name="Contract"
+            options={{
+              title: '',
+              ...styleStatusBar,
+            }}
+            component={Contract}
           />
         </Stack.Navigator>
       </NavigationContainer>
