@@ -4,8 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../styles/colors.json';
 import {TouchableOpacity} from 'react-native';
 const Users = ({route}) => {
-  console.log(route.params);
-
   const itemList = ({item}) => {
     return (
       <TouchableOpacity activeOpacity={0.7}>

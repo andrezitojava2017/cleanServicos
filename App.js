@@ -9,7 +9,7 @@ import {NativeBaseProvider} from 'native-base';
 import Contract from './screens/contract/Contract';
 import Users from './screens/ListUsers/Users';
 import Register from './screens/Register/Register';
-
+import Login from './screens/Login/Login';
 const Stack = createNativeStackNavigator();
 
 const styleStatusBar = {
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Location">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Profile"
             options={{
@@ -66,6 +66,14 @@ const App = () => {
               ...styleStatusBar,
             }}
             component={Register}
+          />
+          <Stack.Screen
+            name="Login"
+            options={{
+              title: null,
+              ...styleStatusBar,
+            }}
+            component={Login}
           />
         </Stack.Navigator>
       </NavigationContainer>
