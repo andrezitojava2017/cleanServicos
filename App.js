@@ -8,6 +8,7 @@ import colors from './styles/colors.json';
 import {NativeBaseProvider} from 'native-base';
 import Contract from './screens/contract/Contract';
 import Users from './screens/ListUsers/Users';
+import Register from './screens/Register/Register';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +58,14 @@ const App = () => {
               ...styleStatusBar,
             }}
             component={Contract}
+          />
+          <Stack.Screen
+            name="Register"
+            options={{
+              title: 'Cadastre-se',
+              ...styleStatusBar,
+            }}
+            component={Register}
           />
         </Stack.Navigator>
       </NavigationContainer>
