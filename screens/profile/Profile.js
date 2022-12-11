@@ -12,7 +12,6 @@ const Profile = ({route, navigation}) => {
    * screen Contract
    */
   const handleContract = item => {
-    console.log(dta);
     navigation.navigate('Contract', {...item, name});
   };
   /**
@@ -91,7 +90,7 @@ const Profile = ({route, navigation}) => {
         <FlatList
           data={dta}
           renderItem={renderItemService}
-          keyExtractor={item => item.id}
+          keyExtractor={(item, index) => index}
         />
       </VStack>
     </VStack>
