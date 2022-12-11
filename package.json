@@ -1,5 +1,5 @@
 {
-  "name": "cleanServicos",
+  "name": "cleanservicos",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,8 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@apollo/client": "^3.7.2",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
+    "@reduxjs/toolkit": "^1.9.1",
+    "graphql": "^16.6.0",
     "native-base": "^3.4.22",
     "react": "18.1.0",
     "react-native": "0.70.4",
@@ -22,6 +25,7 @@
     "react-native-screens": "^3.18.2",
     "react-native-svg": "12.1.1",
     "react-native-vector-icons": "^9.2.0",
+    "react-redux": "^8.0.5",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
