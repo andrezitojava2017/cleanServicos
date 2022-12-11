@@ -5,8 +5,10 @@ export const GET_USERS = gql`
     cleanUsers {
       data {
         attributes {
+          idd
           name
           service
+          coords
         }
       }
     }
