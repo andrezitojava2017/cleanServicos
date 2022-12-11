@@ -3,7 +3,10 @@ import {Box, FlatList, Image, Text} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../styles/colors.json';
 import {TouchableOpacity} from 'react-native';
+
 const Users = ({route}) => {
+  const dta = route.params.data;
+
   const itemList = ({item}) => {
     return (
       <TouchableOpacity activeOpacity={0.7}>
@@ -28,9 +31,9 @@ const Users = ({route}) => {
             justifyContent="space-between"
             padding="2">
             <Box>
-              <Text fontFamily="WorkSans-Bold">{item.name}</Text>
+              <Text fontFamily="WorkSans-Bold">{item.attributes.name}</Text>
               <Text fontFamily="WorkSans-ExtraLight">
-                {item.service[0].descricao}
+                {item.attributes.service[0].descricao}
               </Text>
             </Box>
             <Box>
@@ -45,7 +48,7 @@ const Users = ({route}) => {
   return (
     <Box flex="1" marginY="6">
       <FlatList
-        data={route.params.DATA}
+        data={route.params.data.data}
         renderItem={itemList}
         keyExtractor={item => item.id}
       />
