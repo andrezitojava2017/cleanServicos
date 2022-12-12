@@ -1,8 +1,7 @@
 import React, {StyleSheet, TouchableOpacity} from 'react-native';
 import color from '../styles/colors.json';
 import MapView, {Marker} from 'react-native-maps';
-import InittialLetters from './InitialLetters';
-import {Text} from 'react-native-svg';
+import {Text} from 'react-native';
 import InitialLetters from './InitialLetters';
 
 const Map = ({slatitude, slongitude, data, navigation}) => {
