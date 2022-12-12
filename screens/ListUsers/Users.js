@@ -50,7 +50,7 @@ const Users = ({route}) => {
       <FlatList
         data={route.params.data.data}
         renderItem={itemList}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => index}
       />
     </Box>
   );
