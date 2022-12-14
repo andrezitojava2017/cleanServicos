@@ -11,6 +11,9 @@ import Register from './screens/Register/Register';
 import Login from './screens/Login/Login';
 import {ApolloProvider} from '@apollo/client';
 import client from './api/clientGraphql/client';
+import {store} from './redux/store/store';
+import {Provider} from 'react-redux';
+
 const Stack = createNativeStackNavigator();
 
 const styleStatusBar = {
@@ -25,62 +28,64 @@ const styleStatusBar = {
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <NativeBaseProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen
-              name="Profile"
-              options={{
-                title: 'Perfil',
-                ...styleStatusBar,
-              }}
-              component={Profile}
-            />
-            <Stack.Screen
-              name="ListUsers"
-              options={{
-                title: 'Disponiveis em sua região',
-                ...styleStatusBar,
-              }}
-              component={Users}
-            />
-            <Stack.Screen
-              name="Location"
-              options={{
-                title: 'Mapa',
-                ...styleStatusBar,
-              }}
-              component={UserLocation}
-            />
-            <Stack.Screen
-              name="Contract"
-              options={{
-                title: '',
-                ...styleStatusBar,
-              }}
-              component={Contract}
-            />
-            <Stack.Screen
-              name="Register"
-              options={{
-                title: 'Cadastre-se',
-                ...styleStatusBar,
-              }}
-              component={Register}
-            />
-            <Stack.Screen
-              name="Login"
-              options={{
-                title: null,
-                ...styleStatusBar,
-              }}
-              component={Login}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </NativeBaseProvider>
-    </ApolloProvider>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <NativeBaseProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login">
+              <Stack.Screen
+                name="Profile"
+                options={{
+                  title: 'Perfil',
+                  ...styleStatusBar,
+                }}
+                component={Profile}
+              />
+              <Stack.Screen
+                name="ListUsers"
+                options={{
+                  title: 'Disponiveis em sua região',
+                  ...styleStatusBar,
+                }}
+                component={Users}
+              />
+              <Stack.Screen
+                name="Location"
+                options={{
+                  title: 'Mapa',
+                  ...styleStatusBar,
+                }}
+                component={UserLocation}
+              />
+              <Stack.Screen
+                name="Contract"
+                options={{
+                  title: '',
+                  ...styleStatusBar,
+                }}
+                component={Contract}
+              />
+              <Stack.Screen
+                name="Register"
+                options={{
+                  title: 'Cadastre-se',
+                  ...styleStatusBar,
+                }}
+                component={Register}
+              />
+              <Stack.Screen
+                name="Login"
+                options={{
+                  title: null,
+                  ...styleStatusBar,
+                }}
+                component={Login}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </NativeBaseProvider>
+      </ApolloProvider>
+    </Provider>
   );
 };
 

@@ -6,11 +6,23 @@ import {GET_USERS} from '../../api/clientGraphql/querys/users';
 import {useQuery} from '@apollo/client';
 import Map from '../../components/Map';
 import Loading from '../../components/Loading';
+import {getUsers} from '../../redux/slice/userSlice';
+import {useDispatch} from 'react-redux';
 
 const UserLocation = ({navigation}) => {
   const [slatitude, setSlatitude] = useState(0);
   const [slongitude, setSlongitude] = useState(0);
   const {loading, error, data} = useQuery(GET_USERS);
+
+  const [lista, setLista] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!loading) {
+      console.log(data.cleanUsers.data);
+      dispatch(getUsers());
+    }
+  }, [loading]);
 
   useEffect(() => {
     (async () => {
