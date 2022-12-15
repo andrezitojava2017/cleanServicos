@@ -5,6 +5,8 @@ import {Platform} from 'react-native';
 import {GET_USERS} from '../../api/clientGraphql/querys/users';
 import {useQuery} from '@apollo/client';
 import Map from '../../components/Map';
+import messaging from '@react-native-firebase/messaging';
+import {Alert} from 'react-native';
 import Loading from '../../components/Loading';
 import {setUserList} from '../../redux/slice/userSlice';
 import {useDispatch} from 'react-redux';
@@ -18,7 +20,11 @@ const UserLocation = ({navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setUserList(lista));
+    (async () => {
+      await permissonNotification();
+    })();
+
+    //dispatch(setUserList(lista));
   }, []);
 
   useEffect(() => {
@@ -36,6 +42,21 @@ const UserLocation = ({navigation}) => {
       }
     })();
   }, []);
+
+  const permissonNotification = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      let token = await messaging().getToken();
+      console.log('TOKEN: ', token);
+    }
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+  };
 
   const getLocation = () => {
     return new Promise((resolve, reject) => {
