@@ -3,19 +3,15 @@ import {createSlice} from '@reduxjs/toolkit';
 export const usersSlice = createSlice({
   name: 'users',
   initialState: {
-    list: [],
+    list: '',
   },
   reducers: {
-    setUserList: (state, action) => {
-      state.list = action.payload;
+    setUserList(state, {payload}) {
+      return {...state, list: payload};
     },
   },
 });
 
 export const {setUserList} = usersSlice.actions;
-
+export const selectUser = state => state.users;
 export default usersSlice.reducer;
-
-export const getUsers = () => dispatch => {
-  dispatch(setUserList(['data', 'evento']));
-};

@@ -6,7 +6,7 @@ import {GET_USERS} from '../../api/clientGraphql/querys/users';
 import {useQuery} from '@apollo/client';
 import Map from '../../components/Map';
 import Loading from '../../components/Loading';
-import {getUsers} from '../../redux/slice/userSlice';
+import {setUserList} from '../../redux/slice/userSlice';
 import {useDispatch} from 'react-redux';
 
 const UserLocation = ({navigation}) => {
@@ -14,15 +14,12 @@ const UserLocation = ({navigation}) => {
   const [slongitude, setSlongitude] = useState(0);
   const {loading, error, data} = useQuery(GET_USERS);
 
-  const [lista, setLista] = useState([]);
+  const [lista, setLista] = useState('casa verde');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!loading) {
-      console.log(data.cleanUsers.data);
-      dispatch(getUsers());
-    }
-  }, [loading]);
+    dispatch(setUserList(lista));
+  }, []);
 
   useEffect(() => {
     (async () => {

@@ -11,7 +11,7 @@ import Register from './screens/Register/Register';
 import Login from './screens/Login/Login';
 import {ApolloProvider} from '@apollo/client';
 import client from './api/clientGraphql/client';
-import {store} from './redux/store/store';
+import store from './redux/store/store';
 import {Provider} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
