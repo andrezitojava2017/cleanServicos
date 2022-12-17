@@ -4,6 +4,7 @@ import MapView, {Marker} from 'react-native-maps';
 import {Text} from 'react-native';
 import InitialLetters from './InitialLetters';
 
+import {useSelector} from 'react-redux';
 const Map = ({slatitude, slongitude, data, navigation}) => {
   const handleMarker = (e, marker) => {
     let initialLetters = InitialLetters(marker.attributes.name);
@@ -26,7 +27,7 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
         }}
         showsUserLocation={true}>
         {slatitude != 0
-          ? data.data.map(marker => {
+          ? data.map(marker => {
               return (
                 <Marker
                   key={marker.attributes.idd}

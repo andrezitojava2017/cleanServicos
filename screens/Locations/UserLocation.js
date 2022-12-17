@@ -9,22 +9,20 @@ import messaging from '@react-native-firebase/messaging';
 import {Alert} from 'react-native';
 import Loading from '../../components/Loading';
 import {setUserList} from '../../redux/slice/userSlice';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const UserLocation = ({navigation}) => {
   const [slatitude, setSlatitude] = useState(0);
   const [slongitude, setSlongitude] = useState(0);
   const {loading, error, data} = useQuery(GET_USERS);
-
-  const [lista, setLista] = useState('casa verde');
+  const state = useSelector(state => state);
   const dispatch = useDispatch();
-
   useEffect(() => {
     (async () => {
       await permissonNotification();
+      dispatch(setUserList(data.cleanUsers.data));
     })();
-
-    //dispatch(setUserList(lista));
+    console.log(state.user.list.attributes);
   }, []);
 
   useEffect(() => {
@@ -81,7 +79,7 @@ const UserLocation = ({navigation}) => {
     <Map
       slatitude={slatitude}
       slongitude={slongitude}
-      data={data.cleanUsers}
+      data={state.user.list}
       navigation={navigation}
     />
   );
