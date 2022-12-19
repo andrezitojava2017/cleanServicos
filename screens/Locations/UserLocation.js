@@ -22,7 +22,7 @@ const UserLocation = ({navigation}) => {
       await permissonNotification();
       dispatch(setUserList(data.cleanUsers.data));
     })();
-    console.log(state.user.list.attributes);
+    //console.log(state.user.list.attributes);
   }, []);
 
   useEffect(() => {
