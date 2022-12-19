@@ -29,7 +29,7 @@ const Login = ({navigation}) => {
               fontSize="18"
               color="white"
               padding="4">
-              Entrar com Google
+              Entrar
             </Text>
           </Box>
         </TouchableOpacity>
