@@ -33,21 +33,16 @@ const Login = ({navigation}) => {
         />
       </Box>
 
-      <Box>
+      <Box
+        backgroundColor={colors.colors.red2}
+        borderRadius="xl"
+        width="160"
+        alignItems="center"
+        alignSelf="center">
         <TouchableOpacity onPress={() => navigation.navigate('Location')}>
-          <Box
-            backgroundColor={colors.colors.red2}
-            marginX="8"
-            alignItems="center"
-            borderRadius="8">
-            <Text
-              fontFamily="WorkSans-Reguar"
-              fontSize="18"
-              color="white"
-              padding="4">
-              Entrar
-            </Text>
-          </Box>
+          <Text fontFamily="WorkSans-Reguar" fontSize="18" color="white" bold>
+            Entrar
+          </Text>
         </TouchableOpacity>
       </Box>
       <Box alignItems="center" marginTop="1/6">
