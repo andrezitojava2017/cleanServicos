@@ -5,6 +5,7 @@ import {Text} from 'react-native';
 import InitialLetters from './InitialLetters';
 
 const Map = ({slatitude, slongitude, data, navigation}) => {
+  //
   const handleMarker = (e, marker) => {
     let initialLetters = InitialLetters(marker.attributes.name);
 
@@ -14,6 +15,7 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
       initialLetters,
     });
   };
+
   return (
     <>
       <MapView
@@ -26,7 +28,7 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
           longitudeDelta: 0.00425,
         }}
         showsUserLocation={true}>
-        {slatitude != 0
+        {slatitude != 0 && data != null
           ? data.map(marker => {
               return (
                 <Marker

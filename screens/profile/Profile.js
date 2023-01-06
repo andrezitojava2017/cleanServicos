@@ -7,7 +7,7 @@ const Profile = ({route, navigation}) => {
   //
   const dta = route.params.service;
   const name = route.params.name;
-
+  console.log('dados ' + dta);
   /**
    * screen Contract
    */

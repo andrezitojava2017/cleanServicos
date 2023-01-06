@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import RequestPermission from '../../permissions/Permissions';
 import Geolocation from 'react-native-geolocation-service';
 import {Platform} from 'react-native';
-import {GET_USERS} from '../../api/clientGraphql/querys/users';
-import {useQuery} from '@apollo/client';
 import Map from '../../components/Map';
 import messaging from '@react-native-firebase/messaging';
 import {Alert} from 'react-native';
@@ -12,19 +10,22 @@ import {setUserList} from '../../redux/slice/userSlice';
 import {useDispatch, useSelector} from 'react-redux';
 
 const UserLocation = ({navigation}) => {
+  //
   const [slatitude, setSlatitude] = useState(0);
   const [slongitude, setSlongitude] = useState(0);
-  const {loading, error, data} = useQuery(GET_USERS);
+  //const {loading, error, data} = useQuery(GET_USERS);
   const state = useSelector(state => state);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
+
+  /*
   useEffect(() => {
     (async () => {
       await permissonNotification();
-      dispatch(setUserList(data.cleanUsers.data));
+      //dispatch(setUserList(data.cleanUsers.data));
     })();
     //console.log(state.user.list.attributes);
-  }, []);
-
+  }, [loading]);
+*/
   useEffect(() => {
     (async () => {
       let rp = await RequestPermission();
@@ -41,6 +42,7 @@ const UserLocation = ({navigation}) => {
     })();
   }, []);
 
+  /*
   const permissonNotification = async () => {
     const authStatus = await messaging().requestPermission();
     const enabled =
@@ -55,7 +57,7 @@ const UserLocation = ({navigation}) => {
       Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
   };
-
+*/
   const getLocation = () => {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
@@ -72,14 +74,11 @@ const UserLocation = ({navigation}) => {
     });
   };
 
-  if (loading) {
-    return <Loading />;
-  }
   return (
     <Map
       slatitude={slatitude}
       slongitude={slongitude}
-      data={state.user.list}
+      //data={}
       navigation={navigation}
     />
   );
