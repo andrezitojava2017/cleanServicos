@@ -68,7 +68,8 @@ const App = () => {
               <Stack.Screen
                 name="Register"
                 options={{
-                  title: 'Cadastre-se',
+                  headerShown: false,
+                  title: null,
                   ...styleStatusBar,
                 }}
                 component={Register}
