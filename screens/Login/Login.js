@@ -19,6 +19,7 @@ const Login = ({navigation}) => {
 
       <Box marginX="8" paddingY="8">
         <Input
+          size="16"
           type="text"
           variant="rounded"
           placeholder="E-mail"
@@ -26,6 +27,7 @@ const Login = ({navigation}) => {
           backgroundColor={colors.colors.white1}
         />
         <Input
+          size="16"
           type="password"
           variant="rounded"
           placeholder="Senha"
@@ -47,10 +49,10 @@ const Login = ({navigation}) => {
       </Box>
       <Box alignItems="center" marginTop="1/6">
         <Text color="light.50">
-          Ainda não possui conta?{' '}
+          Ainda não possui conta?
           <Text
             bold
-            onPress={() => console.log('Registre-se')}
+            onPress={() => navigation.navigate('Register')}
             color="warning.600">
             Registre-se
           </Text>
