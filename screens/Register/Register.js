@@ -1,23 +1,43 @@
 import React from 'react';
-import {Box, Image, Input, ScrollView, Text, VStack} from 'native-base';
+import {
+  Box,
+  FormControl,
+  Image,
+  Input,
+  ScrollView,
+  Text,
+  VStack,
+} from 'native-base';
 import {useState} from 'react';
 import colors from '../../styles/colors.json';
 import {TouchableOpacity} from 'react-native';
 import actions from './actions/fireBaseAuth';
+import validation from './actions/validation';
+import {TextInputMask} from 'react-native-masked-text';
 
 const Register = () => {
   const [infoUser, setInfoUser] = useState({});
+  const [emailValid, setEmailValid] = useState(false);
+  const [nameValid, setNameValid] = useState(null);
+  const [passwordValid, setPasswordValid] = useState(false);
 
   const handleCreateAccountUser = () => {
-    actions.CreateAccountUser(infoUser.email, infoUser.password);
+    // validando dados
+    setEmailValid(validation.emailValidation(infoUser.email));
+    setNameValid(validation.nameValidation(infoUser.name));
+    setPasswordValid(validation.passwordValidation(infoUser.password));
+
+    if (emailValid && nameValid && passwordValid) {
+      actions.CreateAccountUser(infoUser.email, infoUser.password);
+    }
   };
 
   return (
     <Box backgroundColor={colors.colors.blue}>
       <ScrollView>
-        <Box alignItems="center" padding="12">
+        <Box alignItems="center" padding="6">
           <Image
-            width="200"
+            width="180"
             height="100"
             source={require('../../assets/image/clean-services.png')}
             alt="Clean Serviços"
@@ -28,66 +48,98 @@ const Register = () => {
           backgroundColor={colors.colors.white1}
           borderTopRadius="30"
           alignItems="center">
-          <Box>
+          <Box marginBottom="1.5">
             <Text
               color="#938E8E"
-              fontSize="26"
+              fontSize="20"
+              fontWeight="bold"
               marginTop="4"
               fontFamily="WorkSans-Regular">
               Criar nova conta
             </Text>
           </Box>
           <VStack width="100%" height="100%">
-            <Input
-              fontSize="16"
-              fontFamily="WorkSans-Regular"
-              variant="rounded"
-              placeholder="Nome"
-              marginBottom="3"
-              marginX="6"
-              onChangeText={text => setInfoUser({...infoUser, name: text})}
-            />
-            <Input
-              fontSize="16"
-              fontFamily="WorkSans-Regular"
-              variant="rounded"
-              placeholder="E-mail"
-              marginBottom="3"
-              marginX="6"
-              onChangeText={text => setInfoUser({...infoUser, email: text})}
-            />
-            <Input
-              fontSize="16"
-              fontFamily="WorkSans-Regular"
-              variant="rounded"
-              placeholder="Senha"
-              marginBottom="3"
-              marginX="6"
-              type="password"
-              onChangeText={text => setInfoUser({...infoUser, password: text})}
-            />
-            <Input
-              fontSize="16"
-              fontFamily="WorkSans-Regular"
-              variant="rounded"
-              placeholder="Telefone"
-              marginBottom="3"
-              marginX="6"
-              keyboardType="phone-pad"
-              onChangeText={text => setInfoUser({...infoUser, phone: text})}
-            />
+            <Box marginX="6" marginBottom="2">
+              <FormControl isInvalid={!nameValid}>
+                <Input
+                  fontSize="13"
+                  fontFamily="WorkSans-Regular"
+                  variant="outline"
+                  placeholder="Nome"
+                  onChangeText={text => setInfoUser({...infoUser, name: text})}
+                />
+                <FormControl.ErrorMessage color="#a45">
+                  O nome possui caracteres invalidos/numeros. Verifique
+                </FormControl.ErrorMessage>
+              </FormControl>
+            </Box>
+            <Box marginX="6" marginBottom="2">
+              <FormControl isInvalid={!emailValid} isRequired>
+                <Input
+                  fontSize="13"
+                  fontFamily="WorkSans-Regular"
+                  variant="outline"
+                  placeholder="E-mail"
+                  onChangeText={text => setInfoUser({...infoUser, email: text})}
+                />
+                <FormControl.ErrorMessage color="#a45">
+                  Informe um e-mail valido!
+                </FormControl.ErrorMessage>
+              </FormControl>
+            </Box>
+
+            <Box marginBottom="2" marginX="6">
+              <FormControl isInvalid={!passwordValid} isRequired>
+                <Input
+                  fontSize="13"
+                  fontFamily="WorkSans-Regular"
+                  variant="outline"
+                  placeholder="Senha"
+                  type="password"
+                  onChangeText={text =>
+                    setInfoUser({...infoUser, password: text})
+                  }
+                />
+                <FormControl.ErrorMessage color="#a45">
+                  A senha deve ter min. 6 caracteres
+                </FormControl.ErrorMessage>
+              </FormControl>
+            </Box>
+            <Box>
+              <TextInputMask
+                style={{
+                  borderStyle: 'solid',
+                  borderWidth: 1,
+                  borderColor: '#dcdcdc',
+                  marginEnd: 20,
+                  marginStart: 25,
+                  marginBottom: 10,
+                  borderRadius: 5,
+                }}
+                fontFamily="WorkSans-Regular"
+                placeholder="Contato"
+                type="cel-phone"
+                options={{
+                  markType: 'BRL',
+                  withDDD: true,
+                  dddMask: '(99) ',
+                }}
+                value={infoUser.phone}
+                onChangeText={text => setInfoUser({...infoUser, phone: text})}
+              />
+            </Box>
             <Box
               backgroundColor={colors.colors.red2}
               borderRadius="30"
               width="200"
-              height="12"
+              height="8"
               alignItems="center"
               justifyContent="center"
               alignSelf="center">
               <TouchableOpacity onPress={handleCreateAccountUser}>
                 <Text
                   fontFamily="WorkSans-Reguar"
-                  fontSize="18"
+                  fontSize="15"
                   color="white"
                   bold>
                   CADASTRAR
