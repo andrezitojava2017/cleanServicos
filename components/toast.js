@@ -3,6 +3,7 @@ import {Toast} from 'native-base';
 
 const MessageToast = ({message, color}) => {
   Toast.show({
+    placement: 'top',
     variant: 'solid',
     description: message,
     bg: color,
