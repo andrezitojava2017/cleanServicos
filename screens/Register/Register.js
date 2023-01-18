@@ -12,23 +12,32 @@ import {useState} from 'react';
 import colors from '../../styles/colors.json';
 import {TouchableOpacity} from 'react-native';
 import actions from './actions/fireBaseAuth';
+import fbCloudFstore from './actions/fireBaseCloudFirestore';
 import validation from './actions/validation';
 import {TextInputMask} from 'react-native-masked-text';
 
-const Register = () => {
+const Register = ({navigation}) => {
   const [infoUser, setInfoUser] = useState({});
   const [emailValid, setEmailValid] = useState(false);
   const [nameValid, setNameValid] = useState(null);
   const [passwordValid, setPasswordValid] = useState(false);
 
-  const handleCreateAccountUser = () => {
+  const handleCreateAccountUser = async () => {
     // validando dados
     setEmailValid(validation.emailValidation(infoUser.email));
     setNameValid(validation.nameValidation(infoUser.name));
     setPasswordValid(validation.passwordValidation(infoUser.password));
 
     if (emailValid && nameValid && passwordValid) {
-      actions.CreateAccountUser(infoUser.email, infoUser.password);
+      let uidUser = await actions.CreateAccountUser(
+        infoUser.email,
+        infoUser.password,
+      );
+      if (uidUser != undefined) {
+        if (fbCloudFstore.createNewUser(uidUser, {...infoUser})) {
+          navigation.navigate('Location');
+        }
+      }
     }
   };
 
