@@ -3,13 +3,15 @@ import auth from '@react-native-firebase/auth';
 import MessageToast from '../../../components/toast';
 
 const CreateAccountUser = (email, password) => {
-  auth()
+  let uid = auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(() => {
+    .then(userCredential => {
+      // console.log('user:', userCredential);
       MessageToast({
         message: 'Parabens! Agora você ja pode ofertar seus serviços!',
         color: 'success.300',
       });
+      return userCredential.user.uid;
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {
@@ -26,6 +28,7 @@ const CreateAccountUser = (email, password) => {
         });
       }
     });
+  return uid;
 };
 
 export default {CreateAccountUser};
