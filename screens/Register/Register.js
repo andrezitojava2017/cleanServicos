@@ -11,9 +11,9 @@ import {
 import {useState} from 'react';
 import colors from '../../styles/colors.json';
 import {TouchableOpacity} from 'react-native';
-import actions from './actions/fireBaseAuth';
-import fbCloudFstore from './actions/fireBaseCloudFirestore';
-import validation from './actions/validation';
+import actions from '../../api/firebase/fireBaseAuth';
+import fbCloudFstore from '../../api/firebase/fireBaseCloudFirestore';
+import validation from '../../validation/validation';
 import {TextInputMask} from 'react-native-masked-text';
 
 const Register = ({navigation}) => {
