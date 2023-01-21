@@ -1,8 +1,38 @@
-import React, {TouchableOpacity, useEffect} from 'react-native';
+import React, {TouchableOpacity} from 'react-native';
 import {Box, Image, Input, Text, VStack} from 'native-base';
 import colors from '../../styles/colors.json';
+import validation from '../../validation/validation';
+import authFirebase from '../../api/firebase/fireBaseAuth';
+import {useState} from 'react';
+import MessageToast from '../../components/toast';
 
 const Login = ({navigation}) => {
+  const [signIn, setSignIn] = useState('');
+
+  const signInEmail = () => {
+    let emailUser = validation.emailValidation(signIn.email);
+
+    if (emailUser) {
+      authFirebase
+        .SigInEmail({...signIn})
+        .then(res => {
+          navigation.navigate('Location');
+        })
+        .catch(error => {
+          MessageToast({
+            message:
+              'Ocorreu um erro ao tentar logar. Verifique e-mail e senha',
+            color: 'error.500',
+          });
+        });
+    } else {
+      MessageToast({
+        message: 'Informe um e-mail valido!',
+        color: 'error.500',
+      });
+    }
+  };
+
   return (
     <VStack
       flex="1"
@@ -25,6 +55,7 @@ const Login = ({navigation}) => {
           placeholder="E-mail"
           marginY="2"
           backgroundColor={colors.colors.white1}
+          onChangeText={text => setSignIn({...signIn, email: text})}
         />
         <Input
           size="16"
@@ -32,6 +63,7 @@ const Login = ({navigation}) => {
           variant="rounded"
           placeholder="Senha"
           backgroundColor={colors.colors.white1}
+          onChangeText={text => setSignIn({...signIn, password: text})}
         />
       </Box>
 
@@ -41,7 +73,7 @@ const Login = ({navigation}) => {
         width="160"
         alignItems="center"
         alignSelf="center">
-        <TouchableOpacity onPress={() => navigation.navigate('Location')}>
+        <TouchableOpacity onPress={signInEmail}>
           <Text fontFamily="WorkSans-Reguar" fontSize="18" color="white" bold>
             Entrar
           </Text>
