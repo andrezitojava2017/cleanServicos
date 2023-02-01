@@ -3,29 +3,12 @@ import RequestPermission from '../../permissions/Permissions';
 import Geolocation from 'react-native-geolocation-service';
 import {Platform} from 'react-native';
 import Map from '../../components/Map';
-import messaging from '@react-native-firebase/messaging';
-import {Alert} from 'react-native';
-import Loading from '../../components/Loading';
-import {setUserList} from '../../redux/slice/userSlice';
-import {useDispatch, useSelector} from 'react-redux';
 
 const UserLocation = ({navigation}) => {
   //
   const [slatitude, setSlatitude] = useState(0);
   const [slongitude, setSlongitude] = useState(0);
-  //const {loading, error, data} = useQuery(GET_USERS);
-  const state = useSelector(state => state);
-  //const dispatch = useDispatch();
 
-  /*
-  useEffect(() => {
-    (async () => {
-      await permissonNotification();
-      //dispatch(setUserList(data.cleanUsers.data));
-    })();
-    //console.log(state.user.list.attributes);
-  }, [loading]);
-*/
   useEffect(() => {
     (async () => {
       let rp = await RequestPermission();
@@ -42,22 +25,6 @@ const UserLocation = ({navigation}) => {
     })();
   }, []);
 
-  /*
-  const permissonNotification = async () => {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    if (enabled) {
-      let token = await messaging().getToken();
-      console.log('TOKEN: ', token);
-    }
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-  };
-*/
   const getLocation = () => {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
