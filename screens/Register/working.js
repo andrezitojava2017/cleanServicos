@@ -9,10 +9,23 @@ import {
 } from 'native-base';
 import colors from '../../styles/colors.json';
 import React, {TouchableOpacity} from 'react-native';
-import {useState} from 'react';
+import fbService from '../../api/firebase/fireBaseCloudFirestore';
+import {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const servicesAvailable = () => {
+const ServicesAvailable = () => {
   const [value, setValue] = useState('');
+  const [service, setService] = useState({uid_user: ''});
+
+  const saveService = () => {
+    fbService.saveServiceOfUser(service);
+  };
+
+  useEffect(() => {
+    AsyncStorage.getItem('@uid_user').then(res => {
+      setService({...service, uid_user: res});
+    });
+  }, []);
 
   const formatValue = () => {
     let num = parseInt(value);
@@ -22,6 +35,7 @@ const servicesAvailable = () => {
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
     setValue(num);
+    setService({...service, value: num});
     // site regex formatar numero https://www.blogson.com.br/formatar-moeda-dinheiro-com-javascript-do-jeito-facil/
   };
   return (
@@ -41,12 +55,20 @@ const servicesAvailable = () => {
           borderTopRadius="30">
           <Box>
             <Text
-              padding="1.5"
+              paddingTop="6"
+              marginLeft="6"
               color="#938E8E"
-              fontSize={32}
-              fontFamily="WorkSans-Medium"
-              textAlign="center">
-              Disponibilizar Serviços
+              fontSize={26}
+              fontFamily="WorkSans-Medium">
+              Disponibilizar
+            </Text>
+            <Text
+              marginLeft="6"
+              paddingBottom="5"
+              color="#938E8E"
+              fontSize={26}
+              fontFamily="WorkSans-Medium">
+              Serviços
             </Text>
           </Box>
           <VStack width="100%" height="100%">
@@ -56,7 +78,7 @@ const servicesAvailable = () => {
                 fontFamily="WorkSans-Regular"
                 variant="outline"
                 placeholder="Titulo"
-                onChangeText={text => console.log(text)}
+                onChangeText={text => setService({...service, title: text})}
               />
             </Box>
             <Box marginX="6" marginBottom="2">
@@ -77,7 +99,9 @@ const servicesAvailable = () => {
                 fontFamily="WorkSans-Regular"
                 variant="outline"
                 placeholder="Descrição"
-                onChangeText={text => console.log(text)}
+                onChangeText={text =>
+                  setService({...service, description: text})
+                }
               />
             </Box>
             <Box
@@ -88,7 +112,7 @@ const servicesAvailable = () => {
               alignItems="center"
               justifyContent="center"
               alignSelf="center">
-              <TouchableOpacity onPress={() => formatValue}>
+              <TouchableOpacity onPress={saveService}>
                 <Text
                   fontFamily="WorkSans-Reguar"
                   fontSize="15"
@@ -105,4 +129,4 @@ const servicesAvailable = () => {
   );
 };
 
-export default servicesAvailable;
+export default ServicesAvailable;
