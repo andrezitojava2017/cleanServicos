@@ -8,6 +8,7 @@ import {NativeBaseProvider} from 'native-base';
 import Contract from './screens/contract/Contract';
 import Users from './screens/ListUsers/Users';
 import Register from './screens/Register/Register';
+import WorkingAvailable from './screens/Register/working';
 import Login from './screens/Login/Login';
 import {ApolloProvider} from '@apollo/client';
 import client from './api/clientGraphql/client';
@@ -81,6 +82,14 @@ const App = () => {
                   ...styleStatusBar,
                 }}
                 component={Login}
+              />
+              <Stack.Screen
+                name="Workin"
+                options={{
+                  title: null,
+                  ...styleStatusBar,
+                }}
+                component={WorkingAvailable}
               />
             </Stack.Navigator>
           </NavigationContainer>
