@@ -20,4 +20,23 @@ const createNewUser = async (uid, {name, phone}) => {
     });
 };
 
-export default {createNewUser};
+const saveServiceOfUser = async service => {
+  await firestore()
+    .collection('service')
+    .add({...service})
+    .then(() => {
+      MessageToast({
+        message:
+          'Parabéns... Serviço encontra-se disponivel em nossa plataforma',
+        color: 'sucess.500',
+      });
+    })
+    .catch(error => {
+      MessageToast({
+        message: 'Ocorreu um erro na gravação do usuario',
+        color: 'error.500',
+      });
+    });
+};
+
+export default {createNewUser, saveServiceOfUser};
