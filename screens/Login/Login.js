@@ -5,6 +5,7 @@ import validation from '../../validation/validation';
 import authFirebase from '../../api/firebase/fireBaseAuth';
 import {useState} from 'react';
 import MessageToast from '../../components/toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
   const [signIn, setSignIn] = useState('');
@@ -16,7 +17,9 @@ const Login = ({navigation}) => {
       authFirebase
         .SigInEmail({...signIn})
         .then(res => {
-          navigation.navigate('Location');
+          AsyncStorage.setItem('@uid_user', res.user.uid).then(() => {
+            navigation.navigate('Location');
+          });
         })
         .catch(error => {
           MessageToast({
