@@ -1,13 +1,14 @@
 import firestore from '@react-native-firebase/firestore';
 import MessageToast from '../../components/toast';
 
-const createNewUser = async (uid, {name, phone}) => {
+const createNewUser = async (uid, {name, phone}, coords) => {
   const user = await firestore()
     .collection('Users')
     .add({
       name: name,
       phone: phone,
       uid: uid,
+      coords: coords,
     })
     .then(() => {
       return true;
