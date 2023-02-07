@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import RequestPermission from '../../permissions/Permissions';
-import Geolocation from 'react-native-geolocation-service';
-import {Platform} from 'react-native';
 import Map from '../../components/Map';
+import location from '../../permissions/location';
 
 const UserLocation = ({navigation}) => {
   //
@@ -13,7 +12,7 @@ const UserLocation = ({navigation}) => {
     (async () => {
       let rp = await RequestPermission();
       if (rp) {
-        getLocation()
+        location()
           .then(response => {
             setSlatitude(response.latitude);
             setSlongitude(response.longitude);
@@ -24,22 +23,6 @@ const UserLocation = ({navigation}) => {
       }
     })();
   }, []);
-
-  const getLocation = () => {
-    return new Promise((resolve, reject) => {
-      if (Platform.OS === 'android') {
-        Geolocation.getCurrentPosition(
-          position => {
-            resolve({...position.coords});
-          },
-          error => {
-            reject(error.message);
-          },
-          {enableHighAccuracy: true, timeout: 2000, maximumAge: 2000},
-        );
-      }
-    });
-  };
 
   return (
     <Map
