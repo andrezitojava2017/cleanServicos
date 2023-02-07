@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Box,
   FormControl,
@@ -15,12 +15,28 @@ import actions from '../../api/firebase/fireBaseAuth';
 import fbCloudFstore from '../../api/firebase/fireBaseCloudFirestore';
 import validation from '../../validation/validation';
 import {TextInputMask} from 'react-native-masked-text';
+import location from '../../permissions/location';
+import MessageToast from '../../components/toast';
 
 const Register = ({navigation}) => {
   const [infoUser, setInfoUser] = useState({});
   const [emailValid, setEmailValid] = useState(false);
   const [nameValid, setNameValid] = useState(null);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [coords, setCoords] = useState({});
+
+  useEffect(() => {
+    location()
+      .then(result => {
+        setCoords({latitude: result.latitude, longitude: result.longitude});
+      })
+      .catch(error => {
+        MessageToast({
+          message: 'Ocorreu um erro ao capturar a localização',
+          color: 'error.500',
+        });
+      });
+  }, []);
 
   const handleCreateAccountUser = async () => {
     // validando dados
@@ -34,7 +50,7 @@ const Register = ({navigation}) => {
         infoUser.password,
       );
       if (uidUser != undefined) {
-        if (fbCloudFstore.createNewUser(uidUser, {...infoUser})) {
+        if (fbCloudFstore.createNewUser(uidUser, {...infoUser}, coords)) {
           navigation.navigate('Location');
         }
       }
