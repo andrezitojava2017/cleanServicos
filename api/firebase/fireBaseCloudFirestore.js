@@ -40,4 +40,22 @@ const saveServiceOfUser = async service => {
     });
 };
 
-export default {createNewUser, saveServiceOfUser};
+const readCollectionUser = async () => {
+  let usersCollection;
+  try {
+    await firestore()
+      .collection('Users')
+      .get()
+      .then(res => {
+        usersCollection = res.docs;
+      });
+    return usersCollection;
+  } catch (error) {
+    MessageToast({
+      message: 'Ocorreu um erro na leitura de dados do usuarios',
+      color: 'error.500',
+    });
+  }
+};
+
+export default {createNewUser, saveServiceOfUser, readCollectionUser};
