@@ -3,7 +3,6 @@ import RequestPermission from '../../permissions/Permissions';
 import Map from '../../components/Map';
 import location from '../../permissions/location';
 import userCollection from '../../api/firebase/fireBaseCloudFirestore';
-import {Button} from 'native-base';
 
 const UserLocation = ({navigation}) => {
   //
