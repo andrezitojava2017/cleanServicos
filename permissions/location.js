@@ -1,3 +1,4 @@
+import {Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 const GetLocation = () => {
   return new Promise((resolve, reject) => {
