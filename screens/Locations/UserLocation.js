@@ -38,7 +38,7 @@ const UserLocation = ({navigation}) => {
     <Map
       slatitude={slatitude}
       slongitude={slongitude}
-      //data={}
+      data={users}
       navigation={navigation}
     />
   );

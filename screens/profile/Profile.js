@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
 import colors from '../../styles/colors.json';
 import {Box, Text, VStack} from 'native-base';
 import Avatar2 from '../../components/Avatar2';
+import readCollectionUser from '../../api/firebase/fireBaseCloudFirestore';
 const Profile = ({route, navigation}) => {
   //
-  const dta = route.params.service;
   const name = route.params.name;
-  console.log('dados ' + dta);
+  const uid = route.params.uid;
+  const [services, setServices] = useState();
+
+  useEffect(() => {
+    (async () => {
+      let val = await readCollectionUser.searchServicesUsers(uid);
+      setServices(val);
+    })();
+  }, []);
   /**
    * screen Contract
    */
@@ -36,7 +44,6 @@ const Profile = ({route, navigation}) => {
         <Box
           flexDirection="row"
           backgroundColor={colors.colors.white2}
-          //backgroundColor={colors.colors.WhiteSmoke}
           shadow="4"
           justifyContent="space-between"
           paddingLeft="2"
@@ -45,9 +52,9 @@ const Profile = ({route, navigation}) => {
           borderLeftWidth="8"
           borderLeftColor={colors.colors.blue2}
           height="20">
-          <Box justifyContent="center">
-            <Text fontSize="16" fontFamily="WorkSans-ExtraLight">
-              {item.descricao}
+          <Box justifyContent="center" maxWidth="200">
+            <Text fontSize="14" fontFamily="WorkSans-ExtraLight">
+              {item.description}
             </Text>
           </Box>
 
@@ -57,7 +64,7 @@ const Profile = ({route, navigation}) => {
             justifyContent="center"
             width="24">
             <Text fontWeight="bold" fontSize="18" paddingLeft="1.5">
-              {nubFormat(item.custo)}
+              {item.value}
             </Text>
           </Box>
         </Box>
@@ -66,11 +73,10 @@ const Profile = ({route, navigation}) => {
   };
 
   return (
-    <VStack space="1/6">
+    <VStack space="12">
       <Box backgroundColor={`${colors.colors.blue}`} width="full" height="120">
         <Box
           backgroundColor={colors.colors.white2}
-          //backgroundColor={colors.colors.WhiteSmoke}
           shadow="3"
           marginX="6"
           height="150"
@@ -87,8 +93,9 @@ const Profile = ({route, navigation}) => {
       </Box>
       <VStack marginX="6" space="2">
         <Text fontSize="20">Serviços</Text>
+
         <FlatList
-          data={dta}
+          data={services}
           renderItem={renderItemService}
           keyExtractor={(item, index) => index}
         />
