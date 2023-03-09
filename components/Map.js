@@ -1,17 +1,21 @@
-import React, {StyleSheet, TouchableOpacity} from 'react-native';
+import React, {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import color from '../styles/colors.json';
 import MapView, {Marker} from 'react-native-maps';
-import {Text} from 'react-native';
 import InitialLetters from './InitialLetters';
 
 const Map = ({slatitude, slongitude, data, navigation}) => {
   //
-  const handleMarker = (e, marker) => {
-    let initialLetters = InitialLetters(marker.attributes.name);
+  const viewData = () => {
+    for (const item of data) {
+      console.log(item.uid);
+    }
+  };
 
-    console.log({...marker.attributes});
+  const handleMarker = (e, marker) => {
+    let initialLetters = InitialLetters(marker.name);
+
     navigation.navigate('Profile', {
-      ...marker.attributes,
+      ...marker,
       initialLetters,
     });
   };
@@ -19,7 +23,7 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
   return (
     <>
       <MapView
-        style={style.mapStyle}
+        style={styles.mapStyle}
         loadingEnabled={true}
         region={{
           latitude: slatitude,
@@ -28,16 +32,16 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
           longitudeDelta: 0.00425,
         }}
         showsUserLocation={true}>
-        {slatitude != 0 && data != null
-          ? data.map(marker => {
+        {slatitude !== 0 && data != null
+          ? data.map(obj => {
               return (
                 <Marker
-                  key={marker.attributes.idd}
+                  key={obj.uid}
                   onPress={e => {
-                    handleMarker(e, marker);
+                    handleMarker(e, obj);
                   }}
-                  coordinate={{...marker.attributes.coords}}
-                  title={`${marker.attributes.name}`}
+                  coordinate={obj.coords}
+                  title={`${obj.name}`}
                 />
               );
             })
@@ -46,14 +50,14 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
 
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => navigation.navigate('ListUsers', {data})}
-        style={style.button}>
-        <Text style={style.text}>Todos</Text>
+        onPress={viewData}
+        style={styles.button}>
+        <Text style={styles.text}>Todos</Text>
       </TouchableOpacity>
     </>
   );
 };
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   mapStyle: {
     flex: 1,
   },
