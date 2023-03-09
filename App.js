@@ -33,7 +33,7 @@ const App = () => {
       <ApolloProvider client={client}>
         <NativeBaseProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Location">
+            <Stack.Navigator initialRouteName="Login">
               <Stack.Screen
                 name="Profile"
                 options={{
