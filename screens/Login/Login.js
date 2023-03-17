@@ -19,6 +19,10 @@ const Login = ({navigation}) => {
         .then(res => {
           AsyncStorage.setItem('@uid_user', res.user.uid).then(() => {
             navigation.navigate('Location');
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Location'}],
+            });
           });
         })
         .catch(error => {
