@@ -52,7 +52,7 @@ const Profile = ({route, navigation}) => {
           borderLeftWidth="8"
           borderLeftColor={colors.colors.blue2}
           height="20">
-          <Box justifyContent="center" maxWidth="200">
+          <Box justifyContent="center" maxWidth="180">
             <Text fontSize="14" fontFamily="WorkSans-ExtraLight">
               {item.description}
             </Text>
@@ -63,8 +63,8 @@ const Profile = ({route, navigation}) => {
             backgroundColor="rgb(214,212,210)"
             justifyContent="center"
             width="24">
-            <Text fontWeight="bold" fontSize="18" paddingLeft="1.5">
-              {item.value}
+            <Text fontWeight="bold" fontSize="14" paddingLeft="1.5">
+              {nubFormat(item.value)}
             </Text>
           </Box>
         </Box>
