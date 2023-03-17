@@ -2,6 +2,7 @@ import React, {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import color from '../styles/colors.json';
 import MapView, {Marker} from 'react-native-maps';
 import InitialLetters from './InitialLetters';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Map = ({slatitude, slongitude, data, navigation}) => {
   //
@@ -9,6 +10,10 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
     for (const item of data) {
       console.log(item.uid);
     }
+  };
+
+  const screenNewService = () => {
+    navigation.navigate('Workin');
   };
 
   const handleMarker = (e, marker) => {
@@ -52,7 +57,14 @@ const Map = ({slatitude, slongitude, data, navigation}) => {
         activeOpacity={0.5}
         onPress={viewData}
         style={styles.button}>
-        <Text style={styles.text}>Todos</Text>
+        <Icon name="list-alt" size={35} color={color.colors.WhiteSmoke} />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={screenNewService}
+        style={styles.btnAddService}>
+        <Icon name="plus-circle" size={60} color={color.colors.blue2} />
       </TouchableOpacity>
     </>
   );
@@ -63,14 +75,27 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute',
-    width: 70,
-    height: 70,
+    width: 55,
+    height: 55,
     right: 20,
     bottom: 20,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 80,
-    backgroundColor: `${color.colors.red}`,
+    borderWidth: 2,
+    borderColor: color.colors.blue2,
+    backgroundColor: `${color.colors.blue2}`,
+  },
+  btnAddService: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    right: 20,
+    bottom: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 80,
+    //backgroundColor: `${color.colors.red}`,
   },
   text: {
     fontWeight: 'bold',
