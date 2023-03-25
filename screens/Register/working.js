@@ -12,12 +12,17 @@ import React, {TouchableOpacity} from 'react-native';
 import fbService from '../../api/firebase/fireBaseCloudFirestore';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MessageToast from '../../components/toast';
 
 const ServicesAvailable = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(0);
   const [service, setService] = useState({uid_user: ''});
 
   const saveService = () => {
+    if (value == '' || service.description == '' || service.title == '') {
+      MessageToast({message: 'Preencha todos os campos', color: 'error.500'});
+      return;
+    }
     fbService.saveServiceOfUser(service);
   };
 
@@ -28,7 +33,7 @@ const ServicesAvailable = () => {
   }, []);
 
   const formatValue = () => {
-    let num = parseInt(value);
+    let num = parseInt(value) || 0;
     num = num
       .toFixed(2)
       .replace('.', ',')
@@ -79,6 +84,7 @@ const ServicesAvailable = () => {
                 variant="outline"
                 placeholder="Titulo"
                 onChangeText={text => setService({...service, title: text})}
+                backgroundColor="#fff"
               />
             </Box>
             <Box marginX="6" marginBottom="2">
@@ -86,6 +92,7 @@ const ServicesAvailable = () => {
                 value={value}
                 fontSize="13"
                 fontFamily="WorkSans-Regular"
+                backgroundColor="#fff"
                 variant="outline"
                 placeholder="R$ cobrado"
                 keyboardType="decimal-pad"
@@ -102,26 +109,27 @@ const ServicesAvailable = () => {
                 onChangeText={text =>
                   setService({...service, description: text})
                 }
+                backgroundColor="#fff"
               />
             </Box>
-            <Box
-              backgroundColor={colors.colors.red2}
-              borderRadius="30"
-              width="200"
-              height="8"
-              alignItems="center"
-              justifyContent="center"
-              alignSelf="center">
-              <TouchableOpacity onPress={saveService}>
+            <TouchableOpacity onPress={saveService}>
+              <Box
+                backgroundColor={colors.colors.red2}
+                borderRadius="30"
+                width="250"
+                height="12"
+                alignItems="center"
+                justifyContent="center"
+                alignSelf="center">
                 <Text
                   fontFamily="WorkSans-Reguar"
-                  fontSize="15"
+                  fontSize="20"
                   color="white"
                   bold>
                   Confirmar
                 </Text>
-              </TouchableOpacity>
-            </Box>
+              </Box>
+            </TouchableOpacity>
           </VStack>
         </Box>
       </Box>
