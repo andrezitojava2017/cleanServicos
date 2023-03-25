@@ -64,7 +64,7 @@ const Profile = ({route, navigation}) => {
             justifyContent="center"
             width="24">
             <Text fontWeight="bold" fontSize="14" paddingLeft="1.5">
-              {nubFormat(item.value)}
+              {nubFormat(parseInt(item.value))}
             </Text>
           </Box>
         </Box>
